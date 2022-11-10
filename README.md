@@ -1,6 +1,8 @@
 # TransUNet
-This repo holds code for [TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation](https://arxiv.org/pdf/2102.04306.pdf)
+This repo contains code for Transformer Architecture for Bio-Medical Image Segmentation. 
 
+## Datasets used
+1. MICCAI 2017: Robotic Tool Segmentation https://endovissub2017-roboticinstrumentsegmentation.grand-challenge.org/ 
 ## Usage
 
 ### 1. Download Google pre-trained ViT models
@@ -37,6 +39,7 @@ python test.py --dataset Synapse --vit_name R50-ViT-B_16
 * [Google ViT](https://github.com/google-research/vision_transformer)
 * [ViT-pytorch](https://github.com/jeonsworld/ViT-pytorch)
 * [segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch)
+* Base code taken from: https://github.com/Beckschen/TransUNet
 
 ## Citations
 
