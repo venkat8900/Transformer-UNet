@@ -10,9 +10,11 @@ import numpy as np
 
 data_path = Path('data')
 
-train_path = data_path / 'train'
+train_path = data_path / 'RTS/train'
 
-cropped_train_path = data_path / 'cropped_train'
+cropped_train_path_binary = data_path / 'RTS_binary' / 'train'
+cropped_train_path_instruments = data_path / 'RTS_instrument' / 'train'
+cropped_train_path_parts = data_path / 'RTS_parts' / 'train'
 
 original_height, original_width = 1080, 1920
 height, width = 1024, 1280
@@ -27,15 +29,17 @@ if __name__ == '__main__':
     for instrument_index in range(1, 2):
         instrument_folder = 'instrument_dataset_' + str(instrument_index)
 
-        (cropped_train_path / instrument_folder / 'images').mkdir(exist_ok=True, parents=True)
+        (cropped_train_path_binary / instrument_folder / 'images').mkdir(exist_ok=True, parents=True)
+        (cropped_train_path_instruments / instrument_folder / 'images').mkdir(exist_ok=True, parents=True)
+        (cropped_train_path_parts / instrument_folder / 'images').mkdir(exist_ok=True, parents=True)
 
-        binary_mask_folder = (cropped_train_path / instrument_folder / 'binary_masks')
+        binary_mask_folder = (cropped_train_path_binary / instrument_folder / 'binary_masks')
         binary_mask_folder.mkdir(exist_ok=True, parents=True)
 
-        parts_mask_folder = (cropped_train_path / instrument_folder / 'parts_masks')
+        parts_mask_folder = (cropped_train_path_parts / instrument_folder / 'parts_masks')
         parts_mask_folder.mkdir(exist_ok=True, parents=True)
 
-        instrument_mask_folder = (cropped_train_path / instrument_folder / 'instruments_masks')
+        instrument_mask_folder = (cropped_train_path_instruments / instrument_folder / 'instruments_masks')
         instrument_mask_folder.mkdir(exist_ok=True, parents=True)
 
         mask_folders = list((train_path / instrument_folder / 'ground_truth').glob('*'))
@@ -46,7 +50,12 @@ if __name__ == '__main__':
             old_h, old_w, _ = img.shape
 
             img = img[h_start: h_start + height, w_start: w_start + width]
-            cv2.imwrite(str(cropped_train_path / instrument_folder / 'images' / (file_name.stem + '.jpg')), img,
+
+            cv2.imwrite(str(cropped_train_path_binary / instrument_folder / 'images' / (file_name.stem + '.jpg')), img,
+                        [cv2.IMWRITE_JPEG_QUALITY, 100])
+            cv2.imwrite(str(cropped_train_path_instruments / instrument_folder / 'images' / (file_name.stem + '.jpg')), img,
+                        [cv2.IMWRITE_JPEG_QUALITY, 100])
+            cv2.imwrite(str(cropped_train_path_parts / instrument_folder / 'images' / (file_name.stem + '.jpg')), img,
                         [cv2.IMWRITE_JPEG_QUALITY, 100])
 
             mask_binary = np.zeros((old_h, old_w))
