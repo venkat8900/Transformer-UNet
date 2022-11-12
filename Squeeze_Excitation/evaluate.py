@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 
-from prepare_data import height, width, h_start, w_start
+from prepare_RTS_data import height, width, h_start, w_start
 
 
 def general_dice(y_true, y_pred):
