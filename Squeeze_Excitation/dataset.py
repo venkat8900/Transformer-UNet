@@ -2,7 +2,7 @@ import torch
 import numpy as np
 import cv2
 from torch.utils.data import Dataset
-import prepare_data
+import prepare_RTS_data
 from albumentations.pytorch.transforms import img_to_tensor
 
 
@@ -43,12 +43,12 @@ def load_image(path):
 def load_mask(path, problem_type):
     if problem_type == 'binary':
         mask_folder = 'binary_masks'
-        factor = prepare_data.binary_factor
+        factor = prepare_RTS_data.binary_factor
     elif problem_type == 'parts':
         mask_folder = 'parts_masks'
-        factor = prepare_data.parts_factor
+        factor = prepare_RTS_data.parts_factor
     elif problem_type == 'instruments':
-        factor = prepare_data.instrument_factor
+        factor = prepare_RTS_data.instrument_factor
         mask_folder = 'instruments_masks'
         
     # print(path)
