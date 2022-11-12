@@ -1,7 +1,7 @@
 import argparse
 import json
 from pathlib import Path
-from validation_se import validation_binary, validation_multi
+from validation import validation_binary, validation_multi
 
 import torch
 torch.cuda.empty_cache()
