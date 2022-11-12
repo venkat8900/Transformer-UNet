@@ -30,6 +30,10 @@ pip install -r requirements.txt
 
 # Squeeze and Excitations
 
+```
+cd "Squeeze_Excitation"
+```
+
 Directory structure is as follows
 ```
     ├── Squeeze_Excitation
