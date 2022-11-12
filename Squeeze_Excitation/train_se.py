@@ -68,8 +68,10 @@ def main():
     
     torch.cuda.empty_cache()
 
+    # checkpoint root
     root = Path(args.root)
     root.mkdir(exist_ok=True, parents=True)
+
 
     if not utils.check_crop_size(args.train_crop_height, args.train_crop_width):
         print('Input image sizes should be divisible by 32, but train '
@@ -85,10 +87,13 @@ def main():
 
     if args.type == 'parts':
         num_classes = 4
+        data_dir = Path.cwd().parent / 'data' / 'RTS_parts' /'train'
     elif args.type == 'instruments':
         num_classes = 8
+        data_dir = Path.cwd().parent / 'data' / 'RTS_instrument' /'train'
     else:
         num_classes = 1
+        data_dir = Path.cwd().parent / 'data' / 'RTS_binary' /'train'
 
     if args.model == 'UNet':
         model = UNet(num_classes=num_classes)
@@ -122,7 +127,7 @@ def main():
             pin_memory=torch.cuda.is_available()
         )
 
-    train_file_names, val_file_names = get_split(args.fold)
+    train_file_names, val_file_names = get_split(args.fold, data_dir)
 
     print('num train = {}, num_val = {}'.format(len(train_file_names), len(val_file_names)))
 

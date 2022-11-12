@@ -1,13 +1,14 @@
 from prepare_RTS_data import data_path
 
 
-def get_split(fold):
+def get_split(fold, data_dir):
     folds = {0: [1, 3],
              1: [2, 5],
              2: [4, 8],
              3: [6, 7]}
 
-    train_path = data_path / 'cropped_train'
+    # train_path = data_path / 'cropped_train'
+    train_path = data_dir
 
     train_file_names = []
     val_file_names = []
