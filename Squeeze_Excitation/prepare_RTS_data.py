@@ -26,7 +26,7 @@ instrument_factor = 32
 
 
 if __name__ == '__main__':
-    for instrument_index in range(1, 2):
+    for instrument_index in range(1, 9):
         instrument_folder = 'instrument_dataset_' + str(instrument_index)
 
         (cropped_train_path_binary / instrument_folder / 'images').mkdir(exist_ok=True, parents=True)
