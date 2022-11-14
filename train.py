@@ -7,7 +7,7 @@ import torch
 import torch.backends.cudnn as cudnn
 from networks.vit_seg_modeling import VisionTransformer as ViT_seg
 from networks.vit_seg_modeling import CONFIGS as CONFIGS_ViT_seg
-from trainer import trainer_synapse, train_RTS_binary, train_RTS_instrument
+from trainer import trainer_synapse, train_RTS_binary, train_RTS_instrument, train_RTS_parts
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--root_path', type=str,
@@ -63,7 +63,7 @@ if __name__ == "__main__":
         },
 
         # TODO:
-        # In the list directory, create a text file with train and test image names 
+        # create text files for test data
         'RTS_binary': {
             'root_path': '../data/RTS_binary/',
             'list_dir': './lists/lists_RTS_binary',
@@ -71,12 +71,21 @@ if __name__ == "__main__":
         },
 
         # TODO
-        # In the list directory, create a text file with train and test image names
+        # create text files for test data
         'RTS_instrument': {
             'root_path': '../data/RTS_instrument/',
             'list_dir': './lists/lists_RTS_instrument',
             'num_classes': 4,
         },
+
+        # TODO
+        # create text files for test data
+        'RTS_parts': {
+            'root_path': '../data/RTS_parts/',
+            'list_dir': './lists/lists_RTS_parts',
+            'num_classes': 8,
+        },
+
     }
     args.num_classes = dataset_config[dataset_name]['num_classes']
     args.root_path = dataset_config[dataset_name]['root_path']
@@ -105,7 +114,7 @@ if __name__ == "__main__":
     net = ViT_seg(config_vit, img_size=args.img_size, num_classes=config_vit.n_classes).cuda()
     net.load_from(weights=np.load(config_vit.pretrained_path))
 
-    trainer = {'Synapse': trainer_synapse, 'RTS_binary': train_RTS_binary, 'RTS_instrument': train_RTS_instrument}
+    trainer = {'Synapse': trainer_synapse, 'RTS_binary': train_RTS_binary, 'RTS_instrument': train_RTS_instrument, 'RTS_parts': train_RTS_parts}
 
     # TODO:
     # Add train functions for train_RTS_binary, train_RTS_instrument. 
