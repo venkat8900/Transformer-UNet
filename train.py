@@ -39,6 +39,8 @@ parser.add_argument('--vit_name', type=str,
                     default='R50-ViT-B_16', help='select one vit model')
 parser.add_argument('--vit_patches_size', type=int,
                     default=16, help='vit_patches_size, default is 16')
+parser.add_argument('--train_crop_height', type = int, default = 1024, help = 'height of the train crops for data transformation')
+parser.add_argument('--train_crop_width', type = int, default = 1280, help = 'width of the train crops for data transformation')
 args = parser.parse_args()
 
 

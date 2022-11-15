@@ -12,7 +12,7 @@ from tensorboardX import SummaryWriter
 from torch.nn.modules.loss import CrossEntropyLoss
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from utils import DiceLoss
+from utils import DiceLoss, train_transform
 from torchvision import transforms
 from datasets.dataset_synapse import Synapse_dataset, RandomGenerator
 from datasets.dataset_RTS import RTS_dataset
@@ -111,7 +111,7 @@ def train_RTS_binary(args, model, snapshot_path):
     # TODO
     # Add augmentations from albumentations
     # Check loss functions as this task is per image but not per volume (Not sure if this is required)
-    db_train = RTS_dataset(base_dir=args.root_path, list_dir=args.list_dir, split="train", task = "binary", transform=None)
+    db_train = RTS_dataset(base_dir=args.root_path, list_dir=args.list_dir, split="train", task = "binary", transform = train_transform(args.train_crop_height, args.train_crop_width, p=1))
     print("The length of train set is: {}".format(len(db_train)))
 
     def worker_init_fn(worker_id):
