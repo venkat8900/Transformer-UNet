@@ -13,7 +13,7 @@ from albumentations import (
     PadIfNeeded,
     RandomCrop,
     CenterCrop,
-    #Resize ##Added
+    Resize,
     
 )
 
@@ -121,7 +121,7 @@ def train_transform(train_crop_height, train_crop_width, p = 1):
         HorizontalFlip(p=0.5),
         Normalize(p=1),
         #Downscale(),
-        #Resize(750,750)
+        Resize(500,500)
     ], p=p)
 
 

@@ -22,7 +22,7 @@ def prep_list(data_dir, save_dir, split):
     with open(save_dir + split + '.txt', 'w') as fp:
         for n in names_list:
             fp.write("%s\n" % n)
-        print("[INFO] Added instrument_dataset_{} {} into {}", format(i), format(split), format(save_dir))
+        print("[INFO] Added instrument_dataset_{} {} into {}". format(i), format(split), format(save_dir))
 
 
 
