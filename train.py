@@ -7,7 +7,7 @@ import torch
 import torch.backends.cudnn as cudnn
 from networks.vit_seg_modeling import VisionTransformer as ViT_seg
 from networks.vit_seg_modeling import CONFIGS as CONFIGS_ViT_seg
-from trainer import trainer_synapse, train_RTS_binary, train_RTS_instrument, train_RTS_parts
+from trainer import trainer_synapse, train_RTS
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--root_path', type=str,
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     net = ViT_seg(config_vit, img_size=args.img_size, num_classes=config_vit.n_classes).cuda()
     net.load_from(weights=np.load(config_vit.pretrained_path))
 
-    trainer = {'Synapse': trainer_synapse, 'RTS_binary': train_RTS_binary, 'RTS_instrument': train_RTS_instrument, 'RTS_parts': train_RTS_parts}
+    trainer = {'Synapse': trainer_synapse, 'RTS': train_RTS}
 
     # TODO:
     # Add train functions for train_RTS_instrument. 

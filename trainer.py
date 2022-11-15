@@ -97,9 +97,8 @@ def trainer_synapse(args, model, snapshot_path):
     writer.close()
     return "Training Finished!"
 
-# TODO:
-# Add code to this function based on our dataset for binary segmentation task
-def train_RTS_binary(args, model, snapshot_path):
+
+def train_RTS(args, model, snapshot_path):
     logging.basicConfig(filename=snapshot_path + "/log.txt", level=logging.INFO,
                         format='[%(asctime)s.%(msecs)03d] %(message)s', datefmt='%H:%M:%S')
     logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
