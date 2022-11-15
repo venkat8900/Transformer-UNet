@@ -30,7 +30,7 @@ parser.add_argument('--deterministic', type=int,  default=1,
 parser.add_argument('--base_lr', type=float,  default=0.01,
                     help='segmentation network learning rate')
 parser.add_argument('--img_size', type=int,
-                    default=224, help='input patch size of network input')
+                    default=500, help='input patch size of network input')
 parser.add_argument('--seed', type=int,
                     default=1234, help='random seed')
 parser.add_argument('--n_skip', type=int,
@@ -41,6 +41,7 @@ parser.add_argument('--vit_patches_size', type=int,
                     default=16, help='vit_patches_size, default is 16')
 parser.add_argument('--train_crop_height', type = int, default = 1024, help = 'height of the train crops for data transformation')
 parser.add_argument('--train_crop_width', type = int, default = 1280, help = 'width of the train crops for data transformation')
+parser.add_argmuent('--task', type = str, default = 'binary', help = 'task for RTS. choose binary/instrument/parts')
 args = parser.parse_args()
 
 
@@ -119,6 +120,6 @@ if __name__ == "__main__":
     trainer = {'Synapse': trainer_synapse, 'RTS_binary': train_RTS_binary, 'RTS_instrument': train_RTS_instrument, 'RTS_parts': train_RTS_parts}
 
     # TODO:
-    # Add train functions for train_RTS_binary, train_RTS_instrument. 
+    # Add train functions for train_RTS_instrument. 
     # change it in trainer.py file
     trainer[dataset_name](args, net, snapshot_path)
