@@ -111,7 +111,7 @@ def train_RTS_binary(args, model, snapshot_path):
     # TODO
     # Add augmentations from albumentations
     # Check loss functions as this task is per image but not per volume (Not sure if this is required)
-    db_train = RTS_dataset(base_dir=args.root_path, list_dir=args.list_dir, split="train", task = "binary", transform = train_transform(args.train_crop_height, args.train_crop_width, p=1))
+    db_train = RTS_dataset(base_dir=args.root_path, list_dir=args.list_dir, split="train", task = args.task, transform = train_transform(args.train_crop_height, args.train_crop_width, p=1))
     print("The length of train set is: {}".format(len(db_train)))
 
     def worker_init_fn(worker_id):
@@ -180,14 +180,4 @@ def train_RTS_binary(args, model, snapshot_path):
 
     writer.close()
     return "Training Finished!"
-
-
-# Add code to this function based on our dataset for instrument segmentation task
-def train_RTS_instrument():
-    pass
-
-# Add code to this function based on our dataset for parts segmentation task
-def train_RTS_parts():
-    pass
-
 
