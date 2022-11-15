@@ -5,6 +5,17 @@ from scipy.ndimage import zoom
 import torch.nn as nn
 import SimpleITK as sitk
 
+from albumentations import (
+    HorizontalFlip,
+    VerticalFlip,
+    Normalize,
+    Compose,
+    PadIfNeeded,
+    RandomCrop,
+    CenterCrop,
+    #Resize ##Added
+    
+)
 
 class DiceLoss(nn.Module):
     def __init__(self, n_classes):
@@ -100,3 +111,17 @@ def test_single_volume(image, label, net, classes, patch_size=[256, 256], test_s
         sitk.WriteImage(img_itk, test_save_path + '/'+ case + "_img.nii.gz")
         sitk.WriteImage(lab_itk, test_save_path + '/'+ case + "_gt.nii.gz")
     return metric_list
+
+
+# TODO
+# Add albumentations transforms
+def train_transform(p=1, train_crop_height, train_crop_width):
+    return Compose([
+        PadIfNeeded(min_height=train_crop_height, min_width=train_crop_width, p=1),
+        RandomCrop(height=train_crop_height, width=train_crop_width, p=1),
+        VerticalFlip(p=0.5),
+        HorizontalFlip(p=0.5),
+        Normalize(p=1),
+        #Downscale(),
+        #Resize(750,750)
+    ], p=p)
