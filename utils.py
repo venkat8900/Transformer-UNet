@@ -113,9 +113,7 @@ def test_single_volume(image, label, net, classes, patch_size=[256, 256], test_s
     return metric_list
 
 
-# TODO
-# Add albumentations transforms
-def train_transform(p=1, train_crop_height, train_crop_width):
+def train_transform(train_crop_height, train_crop_width, p = 1):
     return Compose([
         PadIfNeeded(min_height=train_crop_height, min_width=train_crop_width, p=1),
         RandomCrop(height=train_crop_height, width=train_crop_width, p=1),
@@ -125,3 +123,8 @@ def train_transform(p=1, train_crop_height, train_crop_width):
         #Downscale(),
         #Resize(750,750)
     ], p=p)
+
+
+
+# TODO
+# Add validation transformations
