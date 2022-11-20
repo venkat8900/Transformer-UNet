@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--root_path', type=str,
                     default='../data/Synapse/train_npz', help='root dir for data')
 parser.add_argument('--dataset', type=str,
-                    default='Synapse', help='experiment_name')
+                    default='Synapse', help='experiment_name. Choose from Synapse, RTS_binary, RTS_instruments, RTS_parts')
 parser.add_argument('--list_dir', type=str,
                     default='./lists/lists_Synapse', help='list dir')
 parser.add_argument('--num_classes', type=int,
@@ -41,7 +41,7 @@ parser.add_argument('--vit_patches_size', type=int,
                     default=16, help='vit_patches_size, default is 16')
 parser.add_argument('--train_crop_height', type = int, default = 1024, help = 'height of the train crops for data transformation')
 parser.add_argument('--train_crop_width', type = int, default = 1280, help = 'width of the train crops for data transformation')
-parser.add_argmuent('--task', type = str, default = 'binary', help = 'task for RTS. choose binary/instrument/parts')
+parser.add_argument('--task', type = str, default = 'binary', help = 'task for RTS. choose binary/instrument/parts')
 args = parser.parse_args()
 
 
@@ -122,4 +122,8 @@ if __name__ == "__main__":
     # TODO:
     # Add train functions for train_RTS_instrument. 
     # change it in trainer.py file
-    trainer[dataset_name](args, net, snapshot_path)
+    if dataset_name[:3] == 'RTS':
+        dataset_name = 'RTS'
+        trainer[dataset_name](args, net, snapshot_path)
+    else:
+        dataset_name = dataset_name
